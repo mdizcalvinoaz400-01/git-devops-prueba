@@ -13,5 +13,19 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SC-SonarCloud'
+    organization: 'manueldizcalvinoaz400-01-ficus'
+    scannerMode: 'MSBuild'
+    projectKey: 'manueldizcalvinoaz400-01-FICUS_github-devops-prueba'
+    projectName: 'github-devops-prueba'
+
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
